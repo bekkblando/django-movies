@@ -20,13 +20,14 @@ def load_in(apps, scheme_editor):
         print("Users Ran")
 
     with open("/Users/BekkBlando/Documents/github/django-movies/movieratings/movies.dat", 'rt') as in_file1:
-        movie = in_file1.read()
-        movielist = movie.split("\n")
+        movies = in_file1.read()
+        movielist = movies.split("\n")
         for item in movielist:
             movie3 = item.split('::')
             if len(movie3) == 3:
                 movieinstance = Movie.objects.create(movieId=movie3[0],title=movie3[1],genres=movie3[2])
                 movieinstance.save()
+        print("Movies Ran")
 
     with open("/Users/BekkBlando/Documents/github/django-movies/movieratings/ratings.dat", 'rt') as in_file2:
         review = in_file2.read()
@@ -34,9 +35,11 @@ def load_in(apps, scheme_editor):
         for item in raviewlist:
             review4 = item.split('::')
             if len(review4) == 4:
+                print("Reviews Running")
                 reviewinstance = Review.objects.create(userId=Rater.objects.get(userId=int(review4[0])),
                                                      movieId=Movie.objects.get(movieId=review4[1]),
                                                        rating=review4[2],timestamp=review4[3])
                 reviewinstance.save()
+        print("Reviews Ran")
 
     raise Exception("Worked")
