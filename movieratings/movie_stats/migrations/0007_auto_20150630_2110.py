@@ -7,9 +7,9 @@ from load_csv import load_in
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('movie_stats', '0003_auto_20150630_1401'),
+        ('movie_stats', '0006_auto_20150630_2034'),
     ]
 
     operations = [
-        #migrations.RunPython(load_in),
+
     ]

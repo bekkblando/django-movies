@@ -2,14 +2,18 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-from load_csv import load_in
+
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('movie_stats', '0003_auto_20150630_1401'),
+        ('movie_stats', '0011_auto_20150630_2115'),
     ]
 
     operations = [
-        #migrations.RunPython(load_in),
+        migrations.AlterField(
+            model_name='rater',
+            name='zip',
+            field=models.BigIntegerField(),
+        ),
     ]

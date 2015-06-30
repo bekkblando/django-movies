@@ -7,18 +7,18 @@ from django.db import models
 
 class Rater(models.Model):
     userId = models.IntegerField()
-    movieId = models.IntegerField()
-    rating = models.DecimalField(max_digits=7, decimal_places=2)
-    timestamp = models.BigIntegerField()
-
-class User(models.Model):
-    userId = models.ForeignKey(Rater)
     gender = models.CharField(max_length=1)
     age = models.IntegerField()
-    occupation = models.IntegerField()
-    zip = models.IntegerField()
+    occupation = models.CharField(max_length=140)
+    zip = models.CharField(max_length=140)
 
 class Movie(models.Model):
-    movieId = models.ForeignKey(Rater)
+    movieId = models.IntegerField()
     title = models.CharField(max_length=140)
     genres = models.CharField(max_length=140)
+
+class Review(models.Model):
+    userId = models.ForeignKey(Rater)
+    movieId = models.ForeignKey(Movie)
+    rating = models.DecimalField(max_digits=7, decimal_places=2)
+    timestamp = models.BigIntegerField()
