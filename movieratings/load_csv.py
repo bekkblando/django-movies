@@ -1,62 +1,38 @@
 __author__ = 'BekkBlando'
 
-from movie_stats.models import Link, Movie, Rater
-import pandas as pd
+from movie_stats.models import User, Movie, Rater
 
 # from .models import Link, Movie, Rater
 
 
 def load_in(apps, scheme_editor):
-    users = pd.read_csv('/Users/BekkBlando/Documents/github/django-movies/movieratings/users.dat')#, names=["id", "message", "painting"])
-    #splat_df.fillna(0, inplace=True)
-    print(users)
-
-    """
-    for row in splat_df.iterrows():
-    links = in_file.read()
-    linkslist = links.split('\n')
-    test = linkslist[1].split(',')
-    print(test)
-    testl = Link(movieID=int(test[0]), imdbId=int(test[1]), tmdbId=int(test[2]))
-    testl.save()
-    for item in linkslist:
-        links3 = item.split(',')
-        # print(len(links3))
-        if len(links3) == 3 and links3[0].isdigit() and links3[1].isdigit() and links3[2].isdigit():
-            # print(links3[0])
-            linkinstance = Link.objects.create(movieID=int(links3[0]), imdbId=int(links3[1]), tmdbId=int(links3[2]))
-            linkinstance.save()"""
-
-    movies = pd.read_csv('/Users/BekkBlando/Documents/github/django-movies/movieratings/movies.dat')#, names=["id", "message", "painting"])
-    #splat_df.fillna(0, inplace=True)
-    print(movies.head())
-    """#for row in splat_df.iterrows():
-        movie = in_file1.read()
-        movielist = movie.split("\n")
-        # movietest = movielist[1].split(',')
-        testm = Movie(movieId=movietest[0], title=movietest[1], genres=movietest[2])
-        testm.save()
-        for item in movielist:
-            movie3 = item.split(',')
-            # print(len(movie3))
-            if len(movie3) == 3:
-                if movie3[0] ==
-                movieinstance = Movie.objects.create(movieId=Link.objects.get(movieId=movie3[0]),title=movie3[1],genres=movie3[2])
-                movieinstance.save()"""
-
-    raters = pd.read_csv('/Users/BekkBlando/Documents/github/django-movies/movieratings/ratings.dat')#, names=["id", "message", "painting"])
-    #splat_df.fillna(0, inplace=True)
-    print(raters.head())
-    """#for row in splat_df.iterrows():
+    with open("/Users/BekkBlando/Documents/github/django-movies/movieratings/ratings.dat", 'rt') as in_file2:
         rater = in_file2.read()
         raterlist = rater.split("\n")
-        ratertest = raterlist[1].split(',')
-        testr = Rater(userId=ratertest[0], movieId=ratertest[1], rating=ratertest[2], timestamp=ratertest[3])
-        testr.save()
         for item in raterlist:
-            rater3 = item.split(',')
-            print(len(rater3))
-            if len(rater3) == 4:
-                raterinstance = Rater.objects.create(userId=rater[0],movieId=rater[1],rating=rating[2],timestamp=rating[3])
-                raterinstance.save()"""
-    raise Exception()
+            rater4 = item.split('::')
+            if len(rater4) == 4:
+                raterinstance = Rater.objects.create(userId=rater4[0],movieId=rater4[1],rating=rater4[2],timestamp=rater4[3])
+                raterinstance.save()
+
+    with open("/Users/BekkBlando/Documents/github/django-movies/movieratings/users.dat", 'rt') as in_file:
+        users = in_file.read()
+        userslist = users.split('\n')
+        for item in userslist:
+            users5 = item.split('::')
+            if len(users5) == 5:
+                linkinstance = User.objects.create(userId=Rater.objects.get(userId=int(users5[0]))
+                                                   , gender=user5[1], age=int(user5[2]),
+                                                   occupation=int(user5[3]), zip=int(user5[4]))
+                linkinstance.save()
+
+    with open("/Users/BekkBlando/Documents/github/django-movies/movieratings/movies.dat", 'rt') as in_file1:
+        movie = in_file1.read()
+        movielist = movie.split("\n")
+        for item in movielist:
+            movie3 = item.split('::')
+            if len(movie3) == 3:
+                movieinstance = Movie.objects.create(movieId=Rater.objects.get(movieId=movie3[0]),title=movie3[1],genres=movie3[2])
+                movieinstance.save()
+
+    raise Exception("Worked")
