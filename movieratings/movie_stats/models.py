@@ -21,14 +21,23 @@ class Rater(models.Model):
     rating = models.DecimalField(max_digits=5)
     timestamp = models.BigIntegerField()
 
-with open("") as in_file:
+with open("Macintosh HD/Users/BekkBlando/Documents/github/django-movies/movieratings/movie_stats/links.csv", 'rt') as in_file:
     links = in_file.read()
-    links.split('\n')
+    linkslist = links.split('\n')
+    for item in linkslist:
+        links3 = item.split(',')
+        print(len(links3))
 
-with open("") as in_file1:
+with open("Macintosh HD/Users/BekkBlando/Documents/github/django-movies/movieratings/movie_stats/movies.csv", 'rt') as in_file1:
     movie = in_file1.read()
-    movie.split("\n")
+    movielist = movie.split("\n")
+    for item in movielist:
+        movie3 = item.split(',')
+        print(len(movie3))
 
-with open("") as in_file2:
+with open("Macintosh HD/Users/BekkBlando/Documents/github/django-movies/movieratings/movie_stats/ratings.csv", 'rt') as in_file2:
     rater = in_file2.read()
-    rater.split("\n")
+    raterlist = rater.split("\n")
+    for item in raterlist:
+        rater3 = item.split(',')
+        print(len(rater3))
