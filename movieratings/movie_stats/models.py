@@ -11,12 +11,12 @@ class Link(models.Model):
     tmdbId = models.IntegerField()
 
 class Movie(models.Model):
-    movieId = models.IntegerField()
+    movieId = models.ForeignKey(Link)
     title = models.CharField(max_length=140)
     genres = models.CharField(max_length=140)
 
 class Rater(models.Model):
     userId = models.CharField(max_length=140)
-    movieId = models.CharField(max_length=140)
+    movieId = models.ForeignKey(Link)
     rating = models.DecimalField(max_digits=7, decimal_places=2)
     timestamp = models.BigIntegerField()
