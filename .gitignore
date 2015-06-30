@@ -13,9 +13,9 @@ __pycache__/
 .Python
 .idea
 .envrc
-movieratings/movie_stats/ratings.csv
-movieratings/movie_stats/movies.csv
-movieratings/movie_stats/links.csv
+movieratings/ratings.csv
+movieratings/movies.csv
+movieratings/links.csv
 env/
 build/
 develop-eggs/
