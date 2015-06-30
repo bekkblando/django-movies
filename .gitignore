@@ -9,7 +9,13 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+.direnv
 .Python
+.idea
+.envrc
+movieratings/movie_stats/ratings.csv
+movieratings/movie_stats/movies.csv
+movieratings/movie_stats/links.csv
 env/
 build/
 develop-eggs/
