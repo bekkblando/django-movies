@@ -5,6 +5,8 @@
     <title>Top Twenty Movies</title>
 </head>
 <body>
-<div>{{ Movie }}</div>
+{% for movies in all %}
+    <div><a href="{{/moviemovies}}">{{ movies }}</a></div>
+{% endfor %}
 </body>
 </html>
