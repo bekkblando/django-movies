@@ -13,15 +13,22 @@ class Rater(models.Model):
     zip = models.CharField(max_length=140)
 
     def __str__(self):
-        return Rater.userId, Rater.gender, Rater.age
+        return "User ID: {}, Gender: {}, Age: {}".format(Rater.userId, Rater.gender, Rater.age)
 
 class Movie(models.Model):
     movieId = models.IntegerField()
     title = models.CharField(max_length=140)
     genres = models.CharField(max_length=140)
 
+
+    def __str__(self):
+        return "Movie ID: {}, Title: {}, Genres: {}".format(Movie.userId, Movie.title, Movie.genres)
+
 class Review(models.Model):
     userId = models.ForeignKey(Rater)
     movieId = models.ForeignKey(Movie)
     rating = models.DecimalField(max_digits=7, decimal_places=2)
     timestamp = models.BigIntegerField()
+
+    def __str__(self):
+        return "User ID: {}, Rating: {} ".format(Review.userId, Review.rating)
