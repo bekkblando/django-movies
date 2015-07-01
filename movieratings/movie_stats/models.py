@@ -12,6 +12,9 @@ class Rater(models.Model):
     occupation = models.CharField(max_length=140)
     zip = models.CharField(max_length=140)
 
+    def __str__(self):
+        return Rater.userId, Rater.gender, Rater.age
+
 class Movie(models.Model):
     movieId = models.IntegerField()
     title = models.CharField(max_length=140)
