@@ -33,6 +33,21 @@ class Review(models.Model):
 
     def __str__(self):
         return "{}, Rating: {} ".format(self.userId, self.rating)
+
 class Avgmovrate(models.Model):
     movieId = models.ForeignKey(Movie)
     avg_mov = models.IntegerField()
+    ordering = ['avg_mov']
+
+    def __str__(self):
+            return "{}, Rating: {} ".format(self.movieId, self.avg_mov)
+
+    def besttoworst():
+        sets = []
+        all_rates = Avgmovrate.objects.order_by('avg_mov').all()
+        for item in all_rates:
+            if item.avg_mov:
+                sets.append(item)
+
+        #Avgmovrate.objects.order_by('avg_mov')
+        return sets[:19]
