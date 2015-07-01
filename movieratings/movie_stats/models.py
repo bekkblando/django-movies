@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 from django.db import models
+import numpy
 
 # Create your models here.
 
@@ -30,24 +31,8 @@ class Review(models.Model):
     rating = models.DecimalField(max_digits=7, decimal_places=2)
     timestamp = models.BigIntegerField()
 
-    #@property
-    def toptwen():
-        rates = []
-        all_rates = Review.objects.all()
-        #for item in all_rates:
-            #rates.append(float(item.rating))
-        #sort_rate = sorted(rates)[:19]
-        #print(sort_rate)
-        #final = [Review.objects.exclude(rating = item) for item in sort_rate[0]]
-        final = Review.objects.filter(rating=1.0)
-        final = list(final)
-        movies = []
-        for item in final:
-            print(int(item.movieId.movieId))
-            movies.append(Movie.objects.get(movieId = item.movieId.movieId))
-            if len(movies) == 20:
-                break
-        return movies
-
     def __str__(self):
         return "{}, Rating: {} ".format(self.userId, self.rating)
+class Avgmovrate(models.Model):
+    movieId = models.ForeignKey(Movie)
+    avg_mov = models.IntegerField()

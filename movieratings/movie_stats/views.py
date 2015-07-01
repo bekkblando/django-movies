@@ -17,7 +17,7 @@ def ind_movie(request, movieId):
 
 def top_movies(request):
     #Go through and get top twenty movies
-    all_rates = Review.toptwen()
+    all_rates = Review.getavgrate()
 
     #movie = Movie.objects.get(id=movieId)
     context = {"Movie": all_rates}
