@@ -31,11 +31,13 @@ def load_in(apps, scheme_editor):
 
     with open("/Users/BekkBlando/Documents/github/django-movies/movieratings/ratings.dat", 'rt') as in_file2:
         review = in_file2.read()
-        raviewlist = review.split("\n")
-        for item in raviewlist:
+        reviewlist = review.split("\n")
+        print(reviewlist)
+        for item in reviewlist:
+            print(item)
             review4 = item.split('::')
+            print("Reviews Running")
             if len(review4) == 4:
-                print("Reviews Running")
                 reviewinstance = Review.objects.create(userId=Rater.objects.get(userId=int(review4[0])),
                                                      movieId=Movie.objects.get(movieId=review4[1]),
                                                        rating=review4[2],timestamp=review4[3])
