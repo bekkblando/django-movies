@@ -30,5 +30,16 @@ class Review(models.Model):
     rating = models.DecimalField(max_digits=7, decimal_places=2)
     timestamp = models.BigIntegerField()
 
+    #@property
+    def toptwen():
+        rates = []
+        all_rates = Review.objects.all()
+        for item in all_rates:
+            rates.append(float(item.rating))
+        sort_rate = sorted(rates)[:19]
+        print(sort_rate)
+        final = [Review.objects.exclude(rating = item) for item in sort_rate[0]]
+        return final[:19]
+
     def __str__(self):
         return "{}, Rating: {} ".format(self.userId, self.rating)

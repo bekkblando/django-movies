@@ -19,8 +19,7 @@ from movie_stats.views import ind_movie, top_movies, ind_user
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    # url(r'^$', splat_list),
-    url(r'(?P<movieId>\d+)/$', ind_movie),
-    url(r'^toptwenety/', top_movies),
-    url(r'(?P<userId>\d+)/$', ind_user)
+    url(r'movie(?P<movieId>\d+)/$', ind_movie),
+    url(r'^toptwenty/', top_movies),
+    url(r'(?P<userId>\d+)/$', ind_user),
 ]
