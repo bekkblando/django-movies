@@ -34,12 +34,18 @@ class Review(models.Model):
     def toptwen():
         rates = []
         all_rates = Review.objects.all()
-        for item in all_rates:
-            rates.append(float(item.rating))
-        sort_rate = sorted(rates)[:19]
-        print(sort_rate)
-        final = [Review.objects.exclude(rating = item) for item in sort_rate[0]]
-        return final[:19]
+        #for item in all_rates:
+            #rates.append(float(item.rating))
+        #sort_rate = sorted(rates)[:19]
+        #print(sort_rate)
+        #final = [Review.objects.exclude(rating = item) for item in sort_rate[0]]
+        final = Review.objects.filter(rating=1.0)
+        final = list(final)
+        movies = []
+        for item in final:
+            print(int(item.movieId))
+            movies.append(Movie.objects.get(movieId = item.movieId))
+        return movies
 
     def __str__(self):
         return "{}, Rating: {} ".format(self.userId, self.rating)
