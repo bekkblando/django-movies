@@ -44,4 +44,4 @@ def load_in(apps, scheme_editor):
                 reviewinstance.save()
         print("Reviews Ran")
 
-    raise Exception("Worked")
+    # raise Exception("Worked")
