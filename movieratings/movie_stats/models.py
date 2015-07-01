@@ -43,8 +43,10 @@ class Review(models.Model):
         final = list(final)
         movies = []
         for item in final:
-            print(int(item.movieId))
-            movies.append(Movie.objects.get(movieId = item.movieId))
+            print(int(item.movieId.movieId))
+            movies.append(Movie.objects.get(movieId = item.movieId.movieId))
+            if len(movies) == 20:
+                break
         return movies
 
     def __str__(self):
