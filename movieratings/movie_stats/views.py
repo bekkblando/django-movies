@@ -27,9 +27,9 @@ def top_movies(request):
 
 
 def ind_user(request, userId):
-    try:
-        user = Rater.objects.get(id=userId)
-        context = {"user": user}
-        return render_to_response("user.html", context)
-    except:
-        return HttpResponseNotFound('User\'s not in our data :(')
+    #try:
+    user = Rater.objects.get(id=userId)
+    context = {"user": user, "movies_watched": user.movies_rated()}
+    return render_to_response("user.html", context)
+    """except:
+        return HttpResponseNotFound('User\'s not in our data :(')"""

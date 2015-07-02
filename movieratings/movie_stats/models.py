@@ -16,6 +16,9 @@ class Rater(models.Model):
     def __str__(self):
         return "User ID: {}, Gender: {}, Age: {}".format(self.userId, self.gender, self.age)
 
+    def movies_rated(self):
+        return Review.objects.filter(userId = self)
+
 class Movie(models.Model):
     movieId = models.IntegerField()
     title = models.CharField(max_length=140)
@@ -32,11 +35,11 @@ class Review(models.Model):
     timestamp = models.BigIntegerField()
 
     def __str__(self):
-        return "{}, Rating: {} ".format(self.userId, self.rating)
+        return "{}, Rating: {} ".format(self.movieId, self.rating)
 
 class Avgmovrate(models.Model):
     movieId = models.ForeignKey(Movie)
-    avg_mov = models.IntegerField()
+    avg_mov = models.DecimalField(max_digits=7, decimal_places=2)
     ordering = ['avg_mov']
 
     def __str__(self):

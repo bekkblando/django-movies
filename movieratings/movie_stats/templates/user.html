@@ -6,5 +6,8 @@
 </head>
 <body>
 <div>{{ user }}</div>
+{% for rating in movies_watched %}
+    <a href="{% url "indi_movie" rating.movieId.movieId %}">{{ rating }}</a><br/>
+{% endfor %}
 </body>
 </html>

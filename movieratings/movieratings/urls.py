@@ -18,8 +18,8 @@ from django.contrib import admin
 from movie_stats.views import ind_movie, top_movies, ind_user
 
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'movie(?P<movieId>\d+)/$', ind_movie),
-    url(r'^toptwenty/', top_movies),
-    url(r'(?P<userId>\d+)/$', ind_user),
+    url(r'^admin/', include(admin.site.urls), name="admin"),
+    url(r'movie(?P<movieId>\d+)/$', ind_movie, name="indi_movie"),
+    url(r'^toptwenty/', top_movies, name="toptwenty"),
+    url(r'user(?P<userId>\d+)/$', ind_user, name="indi_user"),
 ]

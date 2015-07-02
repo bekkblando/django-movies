@@ -6,6 +6,6 @@
 {% block body %}
 <h1>Top Twenty Movies</h1>
     {% for item in all %}
-        <div><a href="/movie{{item.movieId.movieId}}">{{ item }}</a></div>
+        <div><a href="{% url "indi_movie" item.movieId.movieId %}">{{ item }}</a></div>
     {% endfor %}
 {% endblock %}
