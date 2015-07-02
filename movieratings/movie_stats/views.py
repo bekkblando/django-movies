@@ -21,7 +21,7 @@ def top_movies(request):
 
     #movie = Movie.objects.get(id=movieId)
     context = {"all": all_rates}
-    return render_to_response("movie.html", context)
+    return render_to_response("toptwentymovies.html", context)
     """except:
     return HttpResponseNotFound('Movie\'s not in our data :(')"""
 

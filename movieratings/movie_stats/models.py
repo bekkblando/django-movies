@@ -48,6 +48,6 @@ class Avgmovrate(models.Model):
         for item in all_rates:
             if item.avg_mov:
                 sets.append(item)
-
+        sets = list(reversed(sets))
         #Avgmovrate.objects.order_by('avg_mov')
         return sets[:19]

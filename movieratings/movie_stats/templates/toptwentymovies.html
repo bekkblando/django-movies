@@ -1,12 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>Top Twenty Movies</title>
-</head>
-<body>
-{% for movies in all %}
-    <div><a href="{{/moviemovies}}">{{ movies }}</a></div>
-{% endfor %}
-</body>
-</html>
+
+{% block title %}
+    <h3>Top Twenty</h3>
+{% endblock %}
+
+{% block body %}
+<h1>Top Twenty Movies</h1>
+    {% for item in all %}
+        <div><a href="/movie{{item.movieId.movieId}}">{{ item }}</a></div>
+    {% endfor %}
+{% endblock %}
