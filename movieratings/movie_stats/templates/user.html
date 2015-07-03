@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>User</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block body %}
 <div>{{ user }}</div>
 {% for rating in movies_watched %}
     <a href="{% url "indi_movie" rating.movieId.movieId %}">{{ rating }}</a><br/>
 {% endfor %}
-</body>
-</html>
+{% endblock %}

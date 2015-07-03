@@ -18,7 +18,6 @@ def ind_movie(request, movieId):
 def top_movies(request):
     #Go through and get top twenty movies
     all_rates = Avgmovrate.besttoworst()
-
     #movie = Movie.objects.get(id=movieId)
     context = {"all": all_rates}
     return render_to_response("toptwentymovies.html", context)
@@ -33,3 +32,6 @@ def ind_user(request, userId):
         return render_to_response("user.html", context)
     except:
         return HttpResponseNotFound('User\'s not in our data :(')
+
+def index(request):
+    return render_to_response("index.html")

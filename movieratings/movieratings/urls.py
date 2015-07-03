@@ -15,11 +15,19 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from movie_stats.views import ind_movie, top_movies, ind_user
+from movie_stats.views import ind_movie, top_movies, ind_user, index
+from django.views.generic.edit import CreateView
+from django.contrib.auth.forms import UserCreationForm
 
 urlpatterns = [
+    url('^register/', CreateView.as_view(
+            template_name='registration/login.html',
+            form_class=UserCreationForm,
+            success_url='/')),
+    url('^accounts/', include('django.contrib.auth.urls')),
     url(r'^admin/', include(admin.site.urls), name="admin"),
-    url(r'movie(?P<movieId>\d+)/$', ind_movie, name="indi_movie"),
+    url(r'^movie(?P<movieId>\d+)/$', ind_movie, name="indi_movie"),
     url(r'^toptwenty/', top_movies, name="toptwenty"),
-    url(r'user(?P<userId>\d+)/$', ind_user, name="indi_user"),
+    url(r'^user(?P<userId>\d+)/$', ind_user, name="indi_user"),
+    url('^', index),
 ]
