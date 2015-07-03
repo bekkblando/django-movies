@@ -35,3 +35,6 @@ def ind_user(request, userId):
 
 def index(request):
     return render_to_response("index.html")
+
+def regis(request):
+    return render_to_response("create_user.html")
