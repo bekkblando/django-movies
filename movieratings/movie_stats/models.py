@@ -7,6 +7,7 @@ import numpy
 # Create your models here.
 
 class Rater(models.Model):
+    #user = models.OneToOneField()
     userId = models.IntegerField()
     gender = models.CharField(max_length=1)
     age = models.IntegerField()
