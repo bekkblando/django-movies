@@ -3,16 +3,18 @@ from django.db import models
 # Create your models here.
 from django.db import models
 import numpy
+from django.contrib.auth.models import User
 
 # Create your models here.
 
 class Rater(models.Model):
-    #user = models.OneToOneField()
+    user_link = models.OneToOneField(User, null=True)
     userId = models.IntegerField()
     gender = models.CharField(max_length=1)
     age = models.IntegerField()
     occupation = models.CharField(max_length=140)
     zip = models.CharField(max_length=140)
+
 
     def __str__(self):
         return "User ID: {}, Gender: {}, Age: {}".format(self.userId, self.gender, self.age)
