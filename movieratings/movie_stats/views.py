@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseNotFound
 from django.shortcuts import render_to_response
 from movie_stats.models import Rater, Movie, Review, Avgmovrate
+from django.template import RequestContext
 
 # Create your views here.
 
@@ -26,10 +27,15 @@ def top_movies(request):
 
 
 def ind_user(request, userId):
+    if request.POST:
+        movieId = request.POST['username']
+        rate = request.POST['Rating']
+        print(movieId, rate)
+        Rater.ratemovie(Rater.objects.get(userId=userId), movieId, rate)
     try:
         user = Rater.objects.get(id=userId)
         context = {"user": user, "movies_watched": user.movies_rated()}
-        return render_to_response("user.html", context)
+        return render_to_response("user.html", context, context_instance=RequestContext(request))
     except:
         return HttpResponseNotFound('User\'s not in our data :(')
 

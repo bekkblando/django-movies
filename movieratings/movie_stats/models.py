@@ -4,11 +4,11 @@ from django.db import models
 from django.db import models
 import numpy
 from django.contrib.auth.models import User
-
+from datetime import time
 # Create your models here.
 
 class Rater(models.Model):
-    user_link = models.OneToOneField(User, null=True)
+    user_link = models.OneToOneField(User)
     userId = models.IntegerField()
     gender = models.CharField(max_length=1)
     age = models.IntegerField()
@@ -21,6 +21,16 @@ class Rater(models.Model):
 
     def movies_rated(self):
         return Review.objects.filter(userId = self)
+
+    def ratemovie(userid, movie_id, rate):
+        print("ran")
+        if Review.objects.filter(movieId = Movie.objects.get(movieId=movie_id)) in Review.objects.filter(userId = self):
+            reviewinstance = Review.objects.create(userId=userid,
+                                     movieId=Movie.objects.get(movieId=movie_id),
+                                       rating=rate,timestamp=time)
+            reviewinstance.save()
+
+
 
 class Movie(models.Model):
     movieId = models.IntegerField()
