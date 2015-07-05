@@ -5,6 +5,8 @@ from django.db import models
 import numpy
 from django.contrib.auth.models import User
 import time
+from sklearn.cluster import KMeans
+from sklearn.decomposition import PCA
 # Create your models here.
 
 class Rater(models.Model):
@@ -71,3 +73,6 @@ class Avgmovrate(models.Model):
         sets = list(reversed(sets))
         #Avgmovrate.objects.order_by('avg_mov')
         return sets[:19]
+
+    def recommendations():
+        all_rates = Avgmovrate.objects.order_by('avg_mov').all()
