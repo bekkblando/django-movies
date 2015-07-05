@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from movie_stats.views import ind_movie, top_movies, ind_user, index, regis
+from movie_stats.views import ind_movie, top_movies, ind_user, index, regis, profile
 from django.views.generic.edit import CreateView
 from django.contrib.auth.forms import UserCreationForm
 
@@ -27,6 +27,7 @@ urlpatterns = [
     url('^accounts/', include('django.contrib.auth.urls')),
     url(r'^admin/', include(admin.site.urls), name="admin"),
     url(r'^movie(?P<movieId>\d+)/$', ind_movie, name="indi_movie"),
+    url(r'^profile/$', profile, name="profile"),
     url(r'^toptwenty/', top_movies, name="toptwenty"),
     url(r'^user(?P<userId>\d+)/$', ind_user, name="indi_user"),
     url('^', index),

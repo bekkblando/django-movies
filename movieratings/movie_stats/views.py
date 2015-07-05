@@ -25,17 +25,26 @@ def top_movies(request):
     """except:
     return HttpResponseNotFound('Movie\'s not in our data :(')"""
 
+def profile(request):
+    if request.POST:
+        print(request.POST)
+        movieId = request.POST['movie']
+        rate = request.POST['rate']
+        print(movieId, rate)
+        Rater.ratemovie(Rater.objects.get(userId=request.user.username), movieId, rate)
+    #try:
+    user = Rater.objects.get(id=request.user.username)
+    context = {"user": user, "movies_watched": user.movies_rated()}
+    return render_to_response("profile.html", context, context_instance=RequestContext(request))
+    #except:
+        #return HttpResponseNotFound('User\'s not in our data :(')
+
 
 def ind_user(request, userId):
-    if request.POST:
-        movieId = request.POST['username']
-        rate = request.POST['Rating']
-        print(movieId, rate)
-        Rater.ratemovie(Rater.objects.get(userId=userId), movieId, rate)
     try:
         user = Rater.objects.get(id=userId)
         context = {"user": user, "movies_watched": user.movies_rated()}
-        return render_to_response("user.html", context, context_instance=RequestContext(request))
+        return render_to_response("user.html", context)
     except:
         return HttpResponseNotFound('User\'s not in our data :(')
 

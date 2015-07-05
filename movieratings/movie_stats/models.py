@@ -4,7 +4,7 @@ from django.db import models
 from django.db import models
 import numpy
 from django.contrib.auth.models import User
-from datetime import time
+import time
 # Create your models here.
 
 class Rater(models.Model):
@@ -24,10 +24,14 @@ class Rater(models.Model):
 
     def ratemovie(userid, movie_id, rate):
         print("ran")
-        if Review.objects.filter(movieId = Movie.objects.get(movieId=movie_id)) in Review.objects.filter(userId = self):
+        print(userid, movie_id, rate)
+        if not Review.objects.filter(movieId = Movie.objects.filter(movieId=movie_id), userId=userid):
+            print("ranfully")
+            print(int(time.time()))
             reviewinstance = Review.objects.create(userId=userid,
                                      movieId=Movie.objects.get(movieId=movie_id),
-                                       rating=rate,timestamp=time)
+                                       rating=rate, timestamp=int(time.time()))
+            print(reviewinstance)
             reviewinstance.save()
 
 
