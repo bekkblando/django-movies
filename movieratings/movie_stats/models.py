@@ -78,22 +78,29 @@ class Avgmovrate(models.Model):
         print(userid)
         all_rates = []
         final_rates = []
+        final_genre = []
         user = Rater.objects.get(userId = userid)
         movies = Review.objects.filter(userId = user).values('movieId')
         for movie in movies:
             for key, value in movie.items():
                 print(value)
-                all_rates.append(Avgmovrate.objects.filter(movieId = Movie.objects.filter(movieId=int(value))))
+                try:
+                    all_rates.append(Avgmovrate.objects.get(movieId = Movie.objects.filter(movieId=int(value))))
+                except:
+                    pass
                 print(all_rates)
-                for item in all_rates:
-                    print(item)
-                    final_rates.append(list(item.values_list('avg_mov', flat=True)) + list(item.values_list('Genre' , flat=True)))
-                print(final_rates)
+        for item in all_rates:
+                print(type(item))
+                final_rates.append(float(item.avg_mov))
+                final_genre.append(item.movieId.genres)
+                final_list = list(zip(final_genre, final_rates))
+                #final_rates.append(list(item.avg_mov) + list(item.movieId.genres))
+        print(final_rates)
 
-        pca = PCA(n_components=2)
-        pca.fit(final_rates)
-        reduced_movie = pca.transform(final_rates)
+        #pca = PCA(n_components=1)
+        #pca.fit(final_list)
+        #reduced_movie = pca.transform(final_list)
         kmeans = KMeans(3)
-        kmeans.fit(reduced_movie)
-        movie_cluster = kmeans.predict(reduced_movie)
+        kmeans.fit(final_list)
+        movie_cluster = kmeans.predict(final_list)
         print(movie_cluster)

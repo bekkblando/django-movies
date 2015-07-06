@@ -27,7 +27,7 @@ def top_movies(request):
 
 def profile(request):
     print(request.user.username)
-    Avgmovrate.recommendations(request.user.username)
+    #Avgmovrate.recommendations(request.user.username)
     if request.POST:
         print(request.POST)
         movieId = request.POST['movie']
