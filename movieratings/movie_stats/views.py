@@ -34,12 +34,12 @@ def profile(request):
         rate = request.POST['rate']
         print(movieId, rate)
         Rater.ratemovie(Rater.objects.get(userId=request.user.username), movieId, rate)
-        try:
+    try:
     user = Rater.objects.get(id=request.user.username)
     context = {"user": user, "movies_watched": user.movies_rated()}
     return render_to_response("profile.html", context, context_instance=RequestContext(request))
-        except:
-            return HttpResponseNotFound('User\'s not in our data :(')
+    except:
+        return HttpResponseNotFound('User\'s not in our data :(')
 
 
 def ind_user(request, userId):
