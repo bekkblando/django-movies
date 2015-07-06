@@ -24,6 +24,9 @@ class Rater(models.Model):
     def movies_rated(self):
         return Review.objects.filter(userId = self)
 
+
+class ReviewManager(models.Manager):
+
     def ratemovie(userid, movie_id, rate):
         print("ran")
         print(userid, movie_id, rate)
@@ -56,14 +59,7 @@ class Review(models.Model):
     def __str__(self):
         return "{}, Rating: {} ".format(self.movieId, self.rating)
 
-class Avgmovrate(models.Model):
-    movieId = models.ForeignKey(Movie)
-    avg_mov = models.DecimalField(max_digits=7, decimal_places=2)
-    ordering = ['avg_mov']
-
-    def __str__(self):
-            return "{}, Rating: {} ".format(self.movieId, self.avg_mov)
-
+class AvgmovrateManager(models.Manager):
     def besttoworst():
         sets = []
         all_rates = Avgmovrate.objects.order_by('avg_mov').all()
@@ -74,7 +70,16 @@ class Avgmovrate(models.Model):
         Avgmovrate.objects.order_by('avg_mov')
         return sets[:19]
 
-    #Ignore
+class Avgmovrate(models.Model):
+    movieId = models.ForeignKey(Movie)
+    avg_mov = models.DecimalField(max_digits=7, decimal_places=2)
+    ordering = ['avg_mov']
+
+    def __str__(self):
+            return "{}, Rating: {} ".format(self.movieId, self.avg_mov)
+
+
+    # Dead Code
     def recommendations(userid):
         print(userid)
         all_rates = []

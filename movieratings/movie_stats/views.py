@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseNotFound
 from django.shortcuts import render_to_response
-from movie_stats.models import Rater, Movie, Review, Avgmovrate
+from movie_stats.models import Rater, Movie, Review, Avgmovrate, AvgmovrateManager, ReviewManager
 from django.template import RequestContext
 
 # Create your views here.
@@ -18,7 +18,7 @@ def ind_movie(request, movieId):
 
 def top_movies(request):
     #Go through and get top twenty movies
-    all_rates = Avgmovrate.besttoworst()
+    all_rates = AvgmovrateManager.besttoworst()
     #movie = Movie.objects.get(id=movieId)
     context = {"all": all_rates}
     return render_to_response("toptwentymovies.html", context)
@@ -33,7 +33,7 @@ def profile(request):
         movieId = request.POST['movie']
         rate = request.POST['rate']
         print(movieId, rate)
-        Rater.ratemovie(Rater.objects.get(userId=request.user.username), movieId, rate)
+        ReviewManager.ratemovie(Rater.objects.get(userId=request.user.username), movieId, rate)
     try:
         user = Rater.objects.get(id=request.user.username)
         context = {"user": user, "movies_watched": user.movies_rated()}
