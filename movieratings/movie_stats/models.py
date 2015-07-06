@@ -74,6 +74,7 @@ class Avgmovrate(models.Model):
         Avgmovrate.objects.order_by('avg_mov')
         return sets[:19]
 
+    #Ignore
     def recommendations(userid):
         print(userid)
         all_rates = []
