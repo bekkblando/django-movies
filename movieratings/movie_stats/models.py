@@ -71,8 +71,29 @@ class Avgmovrate(models.Model):
             if item.avg_mov:
                 sets.append(item)
         sets = list(reversed(sets))
-        #Avgmovrate.objects.order_by('avg_mov')
+        Avgmovrate.objects.order_by('avg_mov')
         return sets[:19]
 
-    def recommendations():
-        all_rates = Avgmovrate.objects.order_by('avg_mov').all()
+    def recommendations(userid):
+        print(userid)
+        all_rates = []
+        final_rates = []
+        user = Rater.objects.get(userId = userid)
+        movies = Review.objects.filter(userId = user).values('movieId')
+        for movie in movies:
+            for key, value in movie.items():
+                print(value)
+                all_rates.append(Avgmovrate.objects.filter(movieId = Movie.objects.filter(movieId=int(value))))
+                print(all_rates)
+                for item in all_rates:
+                    print(item)
+                    final_rates.append(list(item.values_list('avg_mov', flat=True)) + list(item.values_list('Genre' , flat=True)))
+                print(final_rates)
+
+        pca = PCA(n_components=2)
+        pca.fit(final_rates)
+        reduced_movie = pca.transform(final_rates)
+        kmeans = KMeans(3)
+        kmeans.fit(reduced_movie)
+        movie_cluster = kmeans.predict(reduced_movie)
+        print(movie_cluster)
