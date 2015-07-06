@@ -17,17 +17,15 @@ def ind_movie(request, movieId):
 
 
 def top_movies(request):
-    #Go through and get top twenty movies
+    # Go through and get top twenty movies
     all_rates = AvgmovrateManager.besttoworst()
-    #movie = Movie.objects.get(id=movieId)
+    # movie = Movie.objects.get(id=movieId)
     context = {"all": all_rates}
     return render_to_response("toptwentymovies.html", context)
-    """except:
-    return HttpResponseNotFound('Movie\'s not in our data :(')"""
+
 
 def profile(request):
     print(request.user.username)
-    #Avgmovrate.recommendations(request.user.username)
     if request.POST:
         print(request.POST)
         movieId = request.POST['movie']
@@ -50,8 +48,10 @@ def ind_user(request, userId):
     except:
         return HttpResponseNotFound('User\'s not in our data :(')
 
+
 def index(request):
     return render_to_response("index.html")
+
 
 def regis(request):
     return render_to_response("create_user.html")
