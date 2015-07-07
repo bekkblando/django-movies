@@ -8,7 +8,6 @@ from movie_stats.models import Rater
 def test(x,y):
     for rater in Rater.objects.all():
         print(str(rater.userId)+"password'")
-    raise Exception()
 class Migration(migrations.Migration):
 
     dependencies = [

@@ -70,7 +70,9 @@ class AvgmovrateManager(models.Manager):
 class Avgmovrate(models.Model):
     movieId = models.ForeignKey(Movie)
     avg_mov = models.DecimalField(max_digits=7, decimal_places=2)
-    ordering = ['avg_mov']
+
+    class Meta:
+        ordering = ['avg_mov']
 
     def __str__(self):
         return "{}, Rating: {} ".format(self.movieId, self.avg_mov)
