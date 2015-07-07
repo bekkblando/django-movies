@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render
 from django.http import HttpResponseNotFound
 from django.shortcuts import render_to_response
-from django.views.generic import CreateView, DeleteView
+from django.views.generic import CreateView, DeleteView, UpdateView
 from movie_stats.models import Rater, Movie, Review, Avgmovrate, AvgmovrateManager, ReviewManager
 from django.template import RequestContext
 import time
@@ -61,12 +61,20 @@ def regis(request):
     return render_to_response("create_user.html")
 
 def wtd(request):
-    try:
-        user = Rater.objects.get(id=request.user.username)
-        context = {"user": user, "movies_watched": user.movies_rated()}
-        return render_to_response("profile.html", context, context_instance=RequestContext(request))
-    except:
-        return HttpResponseNotFound('User\'s not in our data :(')
+    print(request.user.username)
+    #try:
+    user = Rater.objects.get(id=request.user.username)
+    context = {"user": user, "movies_watched": user.movies_rated()}
+    return render_to_response("wtd.html", context, context_instance=RequestContext(request))
+    #except:
+        #return HttpResponseNotFound('User\'s not in our data :(')
+
+def wtupdate(request):
+    print(request.user.username)
+    #try:
+    user = Rater.objects.get(id=request.user.username)
+    context = {"user": user, "movies_watched": user.movies_rated()}
+    return render_to_response("wtupdate.html", context, context_instance=RequestContext(request))
 
 
 class CreateReviewView(CreateView):
@@ -91,3 +99,8 @@ class CreateReviewView(CreateView):
 class ReviewDelete(DeleteView):
     model = Review
     success_url = reverse_lazy('profile')
+
+class ReviewUpdate(UpdateView):
+    model = Review
+    fields = ['rating']
+    template_name = 'review_update.html'

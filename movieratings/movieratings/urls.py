@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from movie_stats.views import ind_movie, top_movies, ind_user, index, regis, profile, CreateReviewView, ReviewDelete, wtd
+from movie_stats.views import ind_movie, top_movies, ind_user, index, regis, profile, CreateReviewView, ReviewDelete, wtd, \
+    ReviewUpdate, wtupdate
 from django.views.generic.edit import CreateView
 from django.contrib.auth.forms import UserCreationForm
 
@@ -26,13 +27,17 @@ urlpatterns = [
             success_url='/'), name="regis"),
     url('^rate/', CreateReviewView.as_view(
         template_name='ratemovie.html',
-        success_url='profile'), name="rate"),
-    url('^delrate<slug>/', ReviewDelete.as_view(
+        success_url='profile/'), name="rate"),
+    url('^delrate(?P<pk>\w+)', ReviewDelete.as_view(
         template_name='deleterating.html',
-        success_url='profile'), name="delrate"),
+        success_url='profile/'), name="delrate"),
+    url('^update(?P<pk>\w+)', ReviewUpdate.as_view(
+        template_name='review_update.html',
+        success_url='profile/'), name="update"),
     url('^accounts/', include('django.contrib.auth.urls')),
     url(r'^admin/', include(admin.site.urls), name="admin"),
     url(r'^wtd/', wtd, name="wtd"),
+    url(r'^uwtupdate/', wtupdate, name="wtupdate"),
     url(r'^movie(?P<movieId>\d+)/$', ind_movie, name="indi_movie"),
     url(r'^profile/$', profile, name="profile"),
     url(r'^toptwenty/', top_movies, name="toptwenty"),

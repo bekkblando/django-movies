@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% block body %}
 <div>{{ user.username }}</div>
-
+Update
 
 {% for rating in movies_watched %}
-    <a href="{% url 'delrate' rating.id %}">{{ rating }}</a><br/>
+    <a href="{% url 'update' rating.id %}">{{ rating }}</a><br/>
 {% endfor %}
 {% endblock %}

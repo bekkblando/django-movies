@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block body %}
+<div>{{ user.username }}</div>
+
+</br>
+<div class="container" align="center">
+<ul class="nav nav-pills" style="align:center;">
+  <li role="presentation" class="active"><a href="{% url 'rate' %}">Rate Movie</a></li>
+  <li role="presentation" ><a href="{% url 'wtd' %}" >Delete Rating</a></li>
+    <li role="presentation" ><a href="{% url 'wtupdate' %}" >Update Rating</a></li>
+    </ul></div>
+
+{% for rating in movies_watched %}
+    <a href="{% url "indi_movie" rating.movieId.movieId %}">{{ rating }}</a><br/>
+{% endfor %}
+{% endblock %}
