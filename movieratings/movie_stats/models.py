@@ -10,10 +10,10 @@ import time
 class Rater(models.Model):
     user_link = models.OneToOneField(User)
     userId = models.IntegerField()
-    gender = models.CharField(max_length=1)
-    age = models.IntegerField()
-    occupation = models.CharField(max_length=140)
-    zip = models.CharField(max_length=140)
+    gender = models.CharField(max_length=1, default=0)
+    age = models.IntegerField(default=0)
+    occupation = models.CharField(max_length=140, default=0)
+    zip = models.CharField(max_length=140, default=0)
 
     def __str__(self):
         return "User ID: {}, Gender: {}, Age: {}".format(self.userId, self.gender, self.age)

@@ -37,7 +37,7 @@ def profile(request):
         print(movieId, rate)
         ReviewManager.ratemovie(Rater.objects.get(userId=request.user.username), movieId, rate)"""
     try:
-        user = Rater.objects.get(id=request.user.username)
+        user = Rater.objects.get(user_link=request.user)
         context = {"user": user, "movies_watched": user.movies_rated()}
         return render_to_response("profile.html", context, context_instance=RequestContext(request))
     except:
