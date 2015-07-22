@@ -22,7 +22,7 @@ def ind_movie(request, movieId):
 
 def top_movies(request):
     # Go through and get top twenty movies
-    all_rates = AvgmovrateManager.besttoworst()
+    all_rates = Avgmovrate.objects.besttoworst()
     # movie = Movie.objects.get(id=movieId)
     context = {"all": all_rates}
     return render_to_response("toptwentymovies.html", context)
@@ -30,12 +30,6 @@ def top_movies(request):
 
 def profile(request):
     print(request.user.username)
-    """if request.POST:
-        print(request.POST)
-        movieId = request.POST['movie']
-        rate = request.POST['rate']
-        print(movieId, rate)
-        ReviewManager.ratemovie(Rater.objects.get(userId=request.user.username), movieId, rate)"""
     try:
         user = Rater.objects.get(user_link=request.user)
         context = {"user": user, "movies_watched": user.movies_rated()}
@@ -66,8 +60,6 @@ def wtd(request):
     user = Rater.objects.get(id=request.user.username)
     context = {"user": user, "movies_watched": user.movies_rated()}
     return render_to_response("wtd.html", context, context_instance=RequestContext(request))
-    #except:
-        #return HttpResponseNotFound('User\'s not in our data :(')
 
 def wtupdate(request):
     print(request.user.username)
@@ -79,19 +71,14 @@ def wtupdate(request):
 
 class CreateReviewView(CreateView):
     model = Review
-    print("Ran past model")
     template_name = "ratemovie.html"
-    print("Ran past template")
     success_url = "profile.html"
-    print("Ran past success url")
     fields = ["movieId", "rating"]
-    print("Ran past fields")
 
     def form_valid(self, form):
         print("Test")
         print(self.request.user)
         rater_user = Rater.objects.get(user_link=self.request.user)
-        #movie = Movie.objects.get(movieId=form.movieId)
         form.instance.userId = rater_user
         form.instance.timestamp = time.time()
         return super().form_valid(form)

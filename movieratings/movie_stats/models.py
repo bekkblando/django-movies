@@ -23,13 +23,9 @@ class Rater(models.Model):
 
 
 class ReviewManager(models.Manager):
-    def ratemovie(userid, movie_id, rate):
-        print("ran")
-        print(userid, movie_id, rate)
-        if not Review.objects.filter(movieId=Movie.objects.filter(movieId=movie_id), userId=userid):
-            print("ranfully")
-            print(int(time.time()))
-            reviewinstance = Review.objects.create(userId=userid,
+    def ratemovie(self, userid, movie_id, rate):
+        if not self.filter(movieId=Movie.objects.filter(movieId=movie_id), userId=userid):
+            reviewinstance = self.create(userId=userid,
                                                    movieId=Movie.objects.get(movieId=movie_id),
                                                    rating=rate, timestamp=int(time.time()))
             print(reviewinstance)
@@ -54,16 +50,19 @@ class Review(models.Model):
     def __str__(self):
         return "{}, Rating: {} ".format(self.movieId, self.rating)
 
+    objects = ReviewManager()
+
+
 
 class AvgmovrateManager(models.Manager):
-    def besttoworst():
+    def besttoworst(self):
         sets = []
-        all_rates = Avgmovrate.objects.order_by('avg_mov').all()
+        all_rates = self.order_by('avg_mov').all()
         for item in all_rates:
             if item.avg_mov:
                 sets.append(item)
         sets = list(reversed(sets))
-        Avgmovrate.objects.order_by('avg_mov')
+        self.order_by('avg_mov')
         return sets[:19]
 
 
@@ -71,39 +70,11 @@ class Avgmovrate(models.Model):
     movieId = models.ForeignKey(Movie)
     avg_mov = models.DecimalField(max_digits=7, decimal_places=2)
 
+
+    objects = AvgmovrateManager()
+
     class Meta:
         ordering = ['avg_mov']
 
     def __str__(self):
         return "{}, Rating: {} ".format(self.movieId, self.avg_mov)
-
-    # Dead Code
-    """def recommendations(userid):
-        print(userid)
-        all_rates = []
-        final_rates = []
-        final_genre = []
-        user = Rater.objects.get(userId = userid)
-        movies = Review.objects.filter(userId = user).values('movieId')
-        for movie in movies:
-            for key, value in movie.items():
-                print(value)
-                try:
-                    all_rates.append(Avgmovrate.objects.get(movieId = Movie.objects.filter(movieId=int(value))))
-                except:
-                    pass
-                print(all_rates)
-        for item in all_rates:
-                print(type(item))
-                final_rates.append(float(item.avg_mov))
-                final_genre.append(item.movieId.genres)
-                final_list = list(zip(final_genre, final_rates))
-                #final_rates.append(list(item.avg_mov) + list(item.movieId.genres))
-        print(final_rates)
-        #pca = PCA(n_components=1)
-        #pca.fit(final_list)
-        #reduced_movie = pca.transform(final_list)
-        kmeans = KMeans(3)
-        kmeans.fit(final_list)
-        movie_cluster = kmeans.predict(final_list)
-        print(movie_cluster)"""
