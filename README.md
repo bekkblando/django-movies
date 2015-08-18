@@ -1,3 +1,4 @@
+I learned how to make a basic CRUD application, in addition to learning about User Premissions
 # Django Movie Ratings
 
 ## Description
